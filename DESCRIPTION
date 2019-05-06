@@ -1,0 +1,10 @@
+Package: tidyecon
+Type: Package
+Title: Estimates and decomposes linear and logistic regression models
+Version: 0.1.0
+Author: Wojtek Kostelecki
+Maintainer: Wojtek Kostelecki <wojtek.kostelecki@gmail.com>
+Description: Estimates and decomposes linear and logistic regression models.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
