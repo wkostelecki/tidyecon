@@ -1,0 +1,61 @@
+---
+title: "Linear Model Benchmarking"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Linear Model Benchmarking}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(tidyecon)
+
+library(microbenchmark)
+library(dplyr)
+library(ggplot2)
+library(ezplot)
+library(forcats)
+
+```
+
+```{r data setup}
+
+x = as.matrix(cbind(intercept = 1, mtcars[c("cyl", "hp", "disp")]))
+y = mtcars[["mpg"]]
+w = rep(1, nrow(x))
+
+```
+
+```{r run benchmarking}
+
+bm = microbenchmark(
+  lm_fit(x, y),
+  lm_fit(x, y, w),
+  lm.fit(x, y),
+  lm.wfit(x, y, w),
+  times = 100
+)
+
+```
+
+
+```{r chart, fig.height = 2, fig.width = 4}
+bm$expr = fct_reorder(bm$expr, bm$time) %>% fct_rev()
+
+ggplot(bm) +
+  geom_boxplot(aes(x = expr, 
+                   y = time / 1e6, 
+                   group = expr)) +
+  scale_y_log10("time (milliseconds)",
+                labels = ez_labels) +
+  coord_flip() +
+  theme_ez(10)
+```
+
