@@ -20,6 +20,9 @@ lm_fit(x, y, w = NULL, lower = rep(-Inf, ncol(x)), upper = rep(Inf,
 
 \item{tol}{QR decomposition tolerance}
 }
+\value{
+lm_fit model object
+}
 \description{
 lm_fit
 }
