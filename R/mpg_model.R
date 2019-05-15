@@ -5,7 +5,7 @@
 #' @export
 mpg_model = function() {
 
-  lm_fit(as.matrix(mtcars[setdiff(names(mtcars), "mpg")]),
+  lm_fit(mtcars[setdiff(names(mtcars), "mpg")],
          mtcars[["mpg"]])
 
 }
