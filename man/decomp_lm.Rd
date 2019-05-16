@@ -25,5 +25,5 @@ linear model decomposition
 x = cbind(intercept = 1, mtcars[-match("mpg", names(mtcars))])
 y = mtcars[["mpg"]]
 decomp = decomp_lm(x, y)
-# plot(decomp)
+plot(decomp)
 }
