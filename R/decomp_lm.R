@@ -13,7 +13,7 @@
 #' x = cbind(intercept = 1, mtcars[-match("mpg", names(mtcars))])
 #' y = mtcars[["mpg"]]
 #' decomp = decomp_lm(x, y)
-#' # plot(decomp)
+#' plot(decomp)
 decomp_lm = function(x, y, options = list()){
 
   if (!exists("coefficients", options)) {
@@ -22,13 +22,15 @@ decomp_lm = function(x, y, options = list()){
 
   options[["resolve"]] = match.arg(options[["resolve"]], c("actual", "fitted"))
 
+  x = as.matrix(x)
+  if (is.null(colnames(x))) colnames(x) = vnums(ncol(x))
+
   if (is.null(options[["variables"]])) {
     options[["variables"]] = colnames(x)
   } else {
     options[["variables"]] = as.character(options[["variables"]])
   }
 
-  x = as.matrix(x)
   X = as.data.frame(x)
   names(X) = vnums(ncol(X))
 
