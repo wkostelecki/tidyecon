@@ -17,6 +17,8 @@ lm_fit = function(x, y,
 
   stopifnot(all(lower <= upper))
 
+  x = as.matrix(x)
+
   # TODO:
   # - lower/upper with box constrained optimization
   # - sparse implementation
