@@ -30,6 +30,7 @@ lm_fit = function(x, y,
   model = list(x = x,
                y = y,
                coefficients = model[["coefficients"]],
+               residuals = model[["residuals"]],
                model = model)
 
   class(model) = "lm_fit"
