@@ -4,6 +4,7 @@
 #' @param w vector of weights
 #' @param lower lower bounds for coefficients
 #' @param upper upper bounds for coefficients
+#' @param link coefficient links
 #' @param tol QR decomposition tolerance
 #' @return lm_fit model object
 #' @export
@@ -13,6 +14,7 @@ lm_fit = function(x, y,
                   w = NULL,
                   lower = rep(-Inf, ncol(x)),
                   upper = rep(Inf, ncol(x)),
+                  link = rep(NA, ncol(x)),
                   tol = 1e-7) {
 
   stopifnot(all(lower <= upper))
@@ -21,6 +23,7 @@ lm_fit = function(x, y,
 
   # TODO:
   # - lower/upper with box constrained optimization
+  # - coefficient linking
   # - sparse implementation
 
   model = if (is.null(w)) {
