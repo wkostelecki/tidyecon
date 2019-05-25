@@ -17,10 +17,9 @@
 #' }
 #' @export
 #' @examples
-#' data = mtcars
 #' model_spec = data.frame(expr = c("1", "cyl", "hp", "disp"))
 #' options = list(y = "mpg")
-#' estimate(data, model_spec, options)
+#' estimate(mtcars, model_spec, options)
 estimate = function(data,
                     model_spec,
                     options,
@@ -41,13 +40,15 @@ estimate = function(data,
     dplyr::arrange(key, id) %>%
     dplyr::group_by(key) %>%
     dplyr::transmute(
-      !!!lapply(cols, function(x) rlang::parse_quo(x, env = env))
+      !!!lapply(c("id", cols), function(x) rlang::parse_quo(x, env = env))
     ) %>%
     dplyr::ungroup()
 
-  model = lm_fit(x = X[model_spec[["vnum"]]],
-                 y = X[["y"]],
-                 w = X[["w"]],
+  ind = complete.cases(X)
+
+  model = lm_fit(x = X[ind, model_spec[["vnum"]]],
+                 y = X[["y"]][ind],
+                 w = X[["w"]][ind],
                  lower = model_spec[["lower"]],
                  upper = model_spec[["upper"]],
                  link = model_spec[["link"]])
