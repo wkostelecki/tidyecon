@@ -2,5 +2,6 @@
 
 S3method(plot,decomp)
 export(decomp_lm)
+export(estimate)
 export(lm_fit)
 export(mpg_model)

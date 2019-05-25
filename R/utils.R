@@ -17,3 +17,18 @@ vnums = function(n, factor = FALSE) {
   x
 
 }
+
+
+#' make_id
+#' @description makes row ids for a matrix or data.frame using existing row
+#'   names or row numbers
+#' @examples
+#' tidyecon:::make_id(mtcars)
+#' tidyecon:::make_id(airquality)
+make_id = function(X) {
+  if (.row_names_info(X) > 0){
+    row.names(X)
+  } else {
+    seq_len(nrow(X))
+  }
+}

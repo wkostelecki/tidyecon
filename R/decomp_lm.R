@@ -35,11 +35,7 @@ decomp_lm = function(x, y, options = list()){
   names(X) = vnums(ncol(X))
 
   if (is.null(options[["id"]])) {
-    if (!all(row.names(X) == as.character(seq_len(nrow(X))))){
-      options[["id"]] = row.names(X)
-    } else {
-      options[["id"]] = seq_len(nrow(X))
-    }
+    options[["id"]] = make_id(X)
   }
 
   X[["id"]] = options[["id"]]
@@ -63,4 +59,5 @@ decomp_lm = function(x, y, options = list()){
 
   class(X) = c("decomp", "data.frame")
   X
+
 }

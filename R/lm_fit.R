@@ -9,7 +9,7 @@
 #' @return lm_fit model object
 #' @export
 #' @examples
-#' lm_fit(as.matrix(cbind(1, mtcars[c("cyl", "disp", "hp")])), mtcars[["mpg"]])
+#' lm_fit(as.matrix(cbind(1, mtcars[c("cyl", "hp", "disp")])), mtcars[["mpg"]])
 lm_fit = function(x, y,
                   w = NULL,
                   lower = rep(-Inf, ncol(x)),
@@ -35,7 +35,8 @@ lm_fit = function(x, y,
   model = list(x = x,
                y = y,
                coefficients = model[["coefficients"]],
-               model = model)
+               model = model,
+               id = make_id(x))
 
   class(model) = "lm_fit"
 

@@ -1,0 +1,14 @@
+
+
+
+```{r}
+
+library(covr)
+
+```
+
+```{r}
+covr = package_coverage()
+report(covr)
+```
+

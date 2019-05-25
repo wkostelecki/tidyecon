@@ -29,5 +29,5 @@ lm_fit model object
 lm_fit
 }
 \examples{
-lm_fit(as.matrix(cbind(1, mtcars[c("cyl", "disp", "hp")])), mtcars[["mpg"]])
+lm_fit(as.matrix(cbind(1, mtcars[c("cyl", "hp", "disp")])), mtcars[["mpg"]])
 }
