@@ -4,7 +4,7 @@
 \alias{estimate}
 \title{estimate}
 \usage{
-estimate(data, model_spec, options, env = parent.frame())
+estimate(data, model_spec, options)
 }
 \arguments{
 \item{data}{data.frame}
@@ -23,6 +23,8 @@ estimate(data, model_spec, options, env = parent.frame())
   \item{y}{target variable expression}
   \item{w}{(optional) regression weight expression}
   \item{link}{(optional) either "linear" (default) or "binomial"}
+  \item{env}{(optional) environment for extra variables in variable
+  expressions}
 }}
 }
 \description{

@@ -2,6 +2,7 @@
 #' @description Adds id and key columns (necessary for model estimation and
 #'   decomposition) to model data frame.
 #' @param data Data frame.
+#' @importFrom magrittr %>%
 #' @examples
 #' tidyecon:::data_prep(mtcars)
 data_prep = function(data) {
@@ -87,5 +88,6 @@ model_spec_prep = function(model_spec){
 #' tidyecon::options_prep(list(y = "mpg"))
 options_prep = function(options){
   stopifnot(exists("y", options))
+  if (!exists("env", options)) options[["env"]] = parent.frame()
   options
 }

@@ -8,6 +8,8 @@
 }
 \arguments{
 \item{decomp}{a decomp data.frame}
+
+\item{base_size}{base size for ggplot theme}
 }
 \description{
 plot-decomp

@@ -9,7 +9,7 @@ vnums(n, factor = FALSE)
 \arguments{
 \item{n}{number of labels}
 
-\item{(optional)}{logical value to convert output to factor}
+\item{factor}{(optional) logical value to convert output to factor}
 }
 \description{
 vnums

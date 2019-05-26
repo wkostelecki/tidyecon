@@ -1,6 +1,6 @@
 #' vnums
 #' @param n number of labels
-#' @param (optional) logical value to convert output to factor
+#' @param factor (optional) logical value to convert output to factor
 #' @examples
 #' tidyecon::vnums(5)
 #' tidyecon::vnums(10)
@@ -22,6 +22,7 @@ vnums = function(n, factor = FALSE) {
 #' make_id
 #' @description makes row ids for a matrix or data.frame using existing row
 #'   names or row numbers
+#' @param X Data frame or model matrix
 #' @examples
 #' tidyecon:::make_id(mtcars)
 #' tidyecon:::make_id(airquality)

@@ -14,6 +14,8 @@
 #'   \item{y}{target variable expression}
 #'   \item{w}{(optional) regression weight expression}
 #'   \item{link}{(optional) either "linear" (default) or "binomial"}
+#'   \item{env}{(optional) environment for extra variables in variable
+#'   expressions}
 #' }
 #' @export
 #' @examples
@@ -22,8 +24,7 @@
 #' estimate(mtcars, model_spec, options)
 estimate = function(data,
                     model_spec,
-                    options,
-                    env = parent.frame()){
+                    options) {
 
   data = data_prep(data)
   model_spec = model_spec_prep(model_spec)
@@ -40,7 +41,7 @@ estimate = function(data,
     dplyr::arrange(key, id) %>%
     dplyr::group_by(key) %>%
     dplyr::transmute(
-      !!!lapply(c("id", cols), function(x) rlang::parse_quo(x, env = env))
+      !!!lapply(c("id", cols), function(x) rlang::parse_quo(x, env = options[["env"]]))
     ) %>%
     dplyr::ungroup()
 

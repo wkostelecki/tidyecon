@@ -1,6 +1,6 @@
 #' plot-decomp
 #' @param decomp a decomp data.frame
-#'
+#' @param base_size base size for ggplot theme
 #' @export
 #' @examples
 #'

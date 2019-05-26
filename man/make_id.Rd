@@ -6,6 +6,9 @@
 \usage{
 make_id(X)
 }
+\arguments{
+\item{X}{Data frame or model matrix}
+}
 \description{
 makes row ids for a matrix or data.frame using existing row
   names or row numbers

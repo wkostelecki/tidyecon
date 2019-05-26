@@ -18,5 +18,6 @@ Suggests:
     microbenchmark,
     rmarkdown,
     stats,
-    testthat
+    testthat,
+    tidyr
 VignetteBuilder: knitr
