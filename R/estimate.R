@@ -53,11 +53,12 @@ estimate = function(data,
                  upper = model_spec[["upper"]],
                  link = model_spec[["link"]])
 
-  if (!is.null(model_spec[["category"]])){
-    model[["categories"]] = model_spec[c("vnum", "category")]
-  }
+  model = c(model,
+            list(data = data,
+                 model_spec = model_spec,
+                 options = options))
 
-  model[["id"]] = X[c("key", "id")]
+  class(model) = "estimate"
 
   model
 

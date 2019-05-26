@@ -29,8 +29,7 @@ estimate(data, model_spec, options, env = parent.frame())
 wrapper for model estimation using lm_fit
 }
 \examples{
-data = mtcars
 model_spec = data.frame(expr = c("1", "cyl", "hp", "disp"))
 options = list(y = "mpg")
-estimate(data, model_spec, options)
+estimate(mtcars, model_spec, options)
 }
