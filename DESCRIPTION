@@ -14,6 +14,7 @@ Imports:
 Suggests: 
     covr,
     datasets,
+    DT,
     dplyr,
     ezplot,
     forcats,

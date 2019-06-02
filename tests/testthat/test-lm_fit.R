@@ -38,15 +38,13 @@ test_that("coefficients/residuals match lm() for co-linear case", {
 
 test_that("coefficients/residuals match lm() for incomplete observations", {
 
-  airquality = airquality[complete.cases(airquality), ]
+  df = datasets::airquality[stats::complete.cases(datasets::airquality), ]
 
   lm_fit = lm_fit(as.matrix(cbind(`(Intercept)` = 1,
-                                  airquality[c("Solar.R", "Wind", "Temp", "Month")])),
-                  airquality[["Ozone"]])
+                                  df[c("Solar.R", "Wind", "Temp", "Month")])),
+                  df[["Ozone"]])
 
-  remove(airquality)
-
-  lm = lm(Ozone ~ Solar.R + Wind + Temp + Month, airquality)
+  lm = lm(Ozone ~ Solar.R + Wind + Temp + Month, datasets::airquality)
 
   expect_equal(lm_fit[["coefficients"]],
                lm[["coefficients"]])
