@@ -2,9 +2,9 @@
 #' @param n number of labels
 #' @param factor (optional) logical value to convert output to factor
 #' @examples
-#' tidyecon::vnums(5)
-#' tidyecon::vnums(10)
-#' tidyecon::vnums(10, factor = TRUE)
+#' tidyecon:::vnums(5)
+#' tidyecon:::vnums(10)
+#' tidyecon:::vnums(10, factor = TRUE)
 vnums = function(n, factor = FALSE) {
 
   stopifnot(n > 0)

@@ -4,16 +4,13 @@
 \alias{plot.decomp}
 \title{plot-decomp}
 \usage{
-\method{plot}{decomp}(decomp, base_size = 12)
+\method{plot}{decomp}(x, base_size = 12)
 }
 \arguments{
-\item{decomp}{a decomp data.frame}
+\item{x}{a decomp data.frame}
 
 \item{base_size}{base size for ggplot theme}
 }
 \description{
 plot-decomp
-}
-\examples{
-
 }

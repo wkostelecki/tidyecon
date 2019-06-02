@@ -15,7 +15,7 @@ vnums(n, factor = FALSE)
 vnums
 }
 \examples{
-tidyecon::vnums(5)
-tidyecon::vnums(10)
-tidyecon::vnums(10, factor = TRUE)
+tidyecon:::vnums(5)
+tidyecon:::vnums(10)
+tidyecon:::vnums(10, factor = TRUE)
 }

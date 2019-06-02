@@ -1,4 +1,11 @@
-
+---
+title: "Code Coverage"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Linear Model Benchmarking}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
 
 
 ```{r}

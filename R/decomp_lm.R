@@ -40,14 +40,16 @@ decomp_lm = function(x, y, options = list()){
 
   X[["id"]] = options[["id"]]
 
-  X = tidyr::gather(X, vnum, value, -id)
+  X = tidyr::gather(X, "vnum", "value", -.data[["id"]])
 
-  table = data.frame(vnum = vnums(length(options[["coefficients"]])),
-                     variable = options[["variables"]],
-                     coefficient = ifelse(is.na(options[["coefficients"]]),
-                                          0,
-                                          options[["coefficients"]]),
-                     stringsAsFactors = FALSE)
+  table = data.frame(
+    vnum = vnums(length(options[["coefficients"]])),
+    variable = options[["variables"]],
+    coefficient = ifelse(is.na(options[["coefficients"]]),
+                         0,
+                         options[["coefficients"]]),
+    stringsAsFactors = FALSE
+  )
 
   X = dplyr::left_join(X, table, "vnum")
   X[["value"]] = X[["value"]] * X[["coefficient"]]
@@ -61,3 +63,5 @@ decomp_lm = function(x, y, options = list()){
   X
 
 }
+
+globalVariables(".data")

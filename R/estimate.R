@@ -32,20 +32,21 @@ estimate = function(data,
 
   cols = c(
     y = options[["y"]],
-    setNames(model_spec[["expr"]],
-             model_spec[["vnum"]]),
+    stats::setNames(model_spec[["expr"]],
+                    model_spec[["vnum"]]),
     w = options[["w"]]
   )
 
   X = data %>%
-    dplyr::arrange(key, id) %>%
-    dplyr::group_by(key) %>%
+    dplyr::arrange(.data[["key"]], .data[["id"]]) %>%
+    dplyr::group_by(.data[["key"]]) %>%
     dplyr::transmute(
-      !!!lapply(c("id", cols), function(x) rlang::parse_quo(x, env = options[["env"]]))
+      !!!lapply(c("id", cols),
+                function(x) rlang::parse_quo(x, env = options[["env"]]))
     ) %>%
     dplyr::ungroup()
 
-  ind = complete.cases(X)
+  ind = stats::complete.cases(X)
 
   model = lm_fit(x = X[ind, model_spec[["vnum"]]],
                  y = X[["y"]][ind],
@@ -64,3 +65,5 @@ estimate = function(data,
   model
 
 }
+
+globalVariables(".data")

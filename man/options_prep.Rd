@@ -14,5 +14,5 @@ Checks options list for required inputs. See estimate()
   documentation.
 }
 \examples{
-tidyecon::options_prep(list(y = "mpg"))
+tidyecon:::options_prep(list(y = "mpg"))
 }

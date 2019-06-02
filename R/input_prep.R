@@ -15,7 +15,7 @@ data_prep = function(data) {
 
   if (!exists("key", data)) {
     data = data %>%
-      dplyr::group_by(id) %>%
+      dplyr::group_by(.data[["id"]]) %>%
       dplyr::mutate(key = dplyr::row_number()) %>%
       dplyr::ungroup()
   }
@@ -63,12 +63,16 @@ model_spec_prep = function(model_spec){
 
   if (exists("link", model_spec)) {
     model_spec = model_spec %>%
-      dplyr::mutate(link = ifelse(link == "",
+      dplyr::mutate(link = ifelse(.data[["link"]] == "",
                                   NA_character_,
-                                  as.character(link))) %>%
-      dplyr::group_by(link) %>%
-      dplyr::mutate(lower = ifelse(is.na(link), lower, max(lower)),
-                    upper = ifelse(is.na(link), upper, min(upper))) %>%
+                                  as.character(.data[["link"]]))) %>%
+      dplyr::group_by(.data[["link"]]) %>%
+      dplyr::mutate(lower = ifelse(is.na(.data[["link"]]),
+                                   .data[["lower"]],
+                                   max(.data[["lower"]])),
+                    upper = ifelse(is.na(.data[["link"]]),
+                                   .data[["upper"]],
+                                   min(.data[["upper"]]))) %>%
       dplyr::ungroup()
   }
 
@@ -85,9 +89,11 @@ model_spec_prep = function(model_spec){
 #'   documentation.
 #' @param options List of options.
 #' @examples
-#' tidyecon::options_prep(list(y = "mpg"))
+#' tidyecon:::options_prep(list(y = "mpg"))
 options_prep = function(options){
   stopifnot(exists("y", options))
   if (!exists("env", options)) options[["env"]] = parent.frame()
   options
 }
+
+globalVariables(".data")
