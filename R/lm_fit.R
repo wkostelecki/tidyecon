@@ -9,7 +9,7 @@
 #' @return lm_fit model object
 #' @export
 #' @examples
-#' lm_fit(as.matrix(cbind(1, mtcars[c("cyl", "hp", "disp")])), mtcars[["mpg"]])
+#' lm_fit(as.matrix(cbind(1, mtcars[setdiff(names(mtcars), "mpg")])), mtcars[["mpg"]])
 lm_fit = function(x, y,
                   w = NULL,
                   lower = rep(-Inf, ncol(x)),
