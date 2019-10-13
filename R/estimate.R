@@ -19,9 +19,11 @@
 #' }
 #' @export
 #' @examples
-#' model_spec = data.frame(expr = c("1", "cyl", "hp", "disp"))
+#' model_spec = data.frame(expr = c("1", setdiff(names(mtcars), "mpg")))
 #' options = list(y = "mpg")
-#' estimate(mtcars, model_spec, options)
+#' model = estimate(mtcars, model_spec, options)
+#' decomp = decomp(model)
+#' plot(decomp)
 estimate = function(data,
                     model_spec,
                     options) {
@@ -46,7 +48,7 @@ estimate = function(data,
     ) %>%
     dplyr::ungroup()
 
-  ind = stats::complete.cases(X)
+  ind = stats::complete.cases(X) # TODO: move this inside lm_fit?
 
   model = lm_fit(x = X[ind, model_spec[["vnum"]]],
                  y = X[["y"]][ind],
@@ -55,10 +57,10 @@ estimate = function(data,
                  upper = model_spec[["upper"]],
                  link = model_spec[["link"]])
 
-  model = c(model,
-            list(data = data,
-                 model_spec = model_spec,
-                 options = options))
+  model = list(model = model,
+               data = data,
+               model_spec = model_spec,
+               options = options)
 
   class(model) = "estimate"
 

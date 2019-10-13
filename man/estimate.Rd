@@ -31,7 +31,9 @@ estimate(data, model_spec, options)
 wrapper for model estimation using lm_fit
 }
 \examples{
-model_spec = data.frame(expr = c("1", "cyl", "hp", "disp"))
+model_spec = data.frame(expr = c("1", setdiff(names(mtcars), "mpg")))
 options = list(y = "mpg")
-estimate(mtcars, model_spec, options)
+model = estimate(mtcars, model_spec, options)
+decomp = decomp(model)
+plot(decomp)
 }
