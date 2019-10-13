@@ -9,14 +9,21 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
+Imports:
+    magrittr
 Suggests: 
+    covr,
+    datasets,
+    DT,
     dplyr,
     ezplot,
     forcats,
     ggplot2,
     knitr,
     microbenchmark,
+    rlang,
     rmarkdown,
     stats,
-    testthat
+    testthat,
+    tidyr
 VignetteBuilder: knitr

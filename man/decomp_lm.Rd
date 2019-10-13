@@ -22,7 +22,7 @@ decomp_lm(x, y, options = list())
 linear model decomposition
 }
 \examples{
-x = cbind(intercept = 1, mtcars[-match("mpg", names(mtcars))])
+x = cbind(intercept = 1, mtcars[setdiff(names(mtcars), "mpg")])
 y = mtcars[["mpg"]]
 decomp = decomp_lm(x, y)
 plot(decomp)

@@ -5,7 +5,7 @@
 \title{lm_fit}
 \usage{
 lm_fit(x, y, w = NULL, lower = rep(-Inf, ncol(x)), upper = rep(Inf,
-  ncol(x)), tol = 1e-07)
+  ncol(x)), link = rep(NA, ncol(x)), tol = 1e-07)
 }
 \arguments{
 \item{x}{design matrix (N x n)}
@@ -18,6 +18,8 @@ lm_fit(x, y, w = NULL, lower = rep(-Inf, ncol(x)), upper = rep(Inf,
 
 \item{upper}{upper bounds for coefficients}
 
+\item{link}{coefficient links}
+
 \item{tol}{QR decomposition tolerance}
 }
 \value{
@@ -27,5 +29,5 @@ lm_fit model object
 lm_fit
 }
 \examples{
-lm_fit(as.matrix(cbind(1, mtcars[c("cyl", "disp", "hp")])), mtcars[["mpg"]])
+lm_fit(as.matrix(cbind(1, mtcars[c("cyl", "hp", "disp")])), mtcars[["mpg"]])
 }

@@ -9,13 +9,14 @@ vnums(n, factor = FALSE)
 \arguments{
 \item{n}{number of labels}
 
-\item{(optional)}{logical value to convert output to factor}
+\item{factor}{(optional) logical value to convert output to factor}
 }
 \description{
 vnums
 }
 \examples{
-tidyecon::vnums(5)
-tidyecon::vnums(10)
-tidyecon::vnums(10, factor = TRUE)
+tidyecon:::vnums(5)
+tidyecon:::vnums(10)
+tidyecon:::vnums(100)
+tidyecon:::vnums(10, factor = TRUE)
 }

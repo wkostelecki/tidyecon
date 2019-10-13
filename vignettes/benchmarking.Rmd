@@ -14,28 +14,37 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+```{r setup, echo = FALSE}
 library(tidyecon)
-
 library(microbenchmark)
-library(dplyr)
+suppressPackageStartupMessages(library(dplyr))
 library(ggplot2)
 library(ezplot)
 library(forcats)
 
 ```
 
-```{r data setup}
+## Small data set
 
-x = as.matrix(cbind(intercept = 1, mtcars[c("cyl", "hp", "disp")]))
-y = mtcars[["mpg"]]
+```{r data setup}
+df = mtcars
+model_spec = data.frame(expr = c("1", "cyl", "hp", "disp"),
+                        stringsAsFactors = FALSE)
+
+options = list(y = "mpg")
+
+x = as.matrix(cbind(intercept = 1, df[c("cyl", "hp", "disp")]))
+y = df[["mpg"]]
 w = rep(1, nrow(x))
 
 ```
 
+## Estimation
+
 ```{r run benchmarking}
 
 bm = microbenchmark(
+  `estimate(...)` = estimate(df, model_spec, options),
   lm_fit(x, y),
   lm_fit(x, y, w),
   lm.fit(x, y),
@@ -45,8 +54,8 @@ bm = microbenchmark(
 
 ```
 
-
-```{r chart, fig.height = 2, fig.width = 4}
+## Results
+```{r chart, fig.height = 2, fig.width = 7, echo = FALSE}
 bm$expr = fct_reorder(bm$expr, bm$time) %>% fct_rev()
 
 ggplot(bm) +

@@ -4,10 +4,10 @@ context("lm_fit")
 test_that("coefficients/residuals match lm() for standard use", {
 
   lm_fit = lm_fit(as.matrix(cbind(`(Intercept)` = 1,
-                                  mtcars[c("cyl", "disp", "hp")])),
+                                  mtcars[c("cyl", "hp", "disp")])),
                   mtcars[["mpg"]])
 
-  lm = lm(mpg ~ cyl + disp + hp, mtcars)
+  lm = lm(mpg ~ cyl + hp + disp, mtcars)
 
   expect_equal(lm_fit[["coefficients"]],
                lm[["coefficients"]])
@@ -22,10 +22,10 @@ test_that("coefficients/residuals match lm() for co-linear case", {
   mtcars[["cyl2"]] = mtcars[["cyl"]]
 
   lm_fit = lm_fit(as.matrix(cbind(`(Intercept)` = 1,
-                                  mtcars[c("cyl", "cyl2", "disp", "hp")])),
+                                  mtcars[c("cyl", "cyl2", "hp", "disp")])),
                   mtcars[["mpg"]])
 
-  lm = lm(mpg ~ cyl + cyl2 + disp + hp, mtcars)
+  lm = lm(mpg ~ cyl + cyl2 + hp + disp, mtcars)
 
   expect_equal(lm_fit[["coefficients"]],
                lm[["coefficients"]])
@@ -38,15 +38,13 @@ test_that("coefficients/residuals match lm() for co-linear case", {
 
 test_that("coefficients/residuals match lm() for incomplete observations", {
 
-  airquality = airquality[complete.cases(airquality), ]
+  df = datasets::airquality[stats::complete.cases(datasets::airquality), ]
 
   lm_fit = lm_fit(as.matrix(cbind(`(Intercept)` = 1,
-                                  airquality[c("Solar.R", "Wind", "Temp", "Month")])),
-                  airquality[["Ozone"]])
+                                  df[c("Solar.R", "Wind", "Temp", "Month")])),
+                  df[["Ozone"]])
 
-  remove(airquality)
-
-  lm = lm(Ozone ~ Solar.R + Wind + Temp + Month, airquality)
+  lm = lm(Ozone ~ Solar.R + Wind + Temp + Month, datasets::airquality)
 
   expect_equal(lm_fit[["coefficients"]],
                lm[["coefficients"]])
@@ -59,11 +57,11 @@ test_that("coefficients/residuals match lm() for incomplete observations", {
 test_that("coefficients/residuals match weighted lm()", {
 
   lm_fit = lm_fit(as.matrix(cbind(`(Intercept)` = 1,
-                                  mtcars[c("cyl", "disp", "hp")])),
+                                  mtcars[c("cyl", "hp", "disp")])),
                   mtcars[["mpg"]],
                   w = seq_len(nrow(mtcars)))
 
-  lm = lm(mpg ~ cyl + disp + hp, mtcars, weights = seq_len(nrow(mtcars)))
+  lm = lm(mpg ~ cyl + hp + disp, mtcars, weights = seq_len(nrow(mtcars)))
 
   expect_equal(lm_fit[["coefficients"]],
                lm[["coefficients"]])
