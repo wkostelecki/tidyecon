@@ -4,6 +4,7 @@
 #' @examples
 #' tidyecon:::vnums(5)
 #' tidyecon:::vnums(10)
+#' tidyecon:::vnums(100)
 #' tidyecon:::vnums(10, factor = TRUE)
 vnums = function(n, factor = FALSE) {
 

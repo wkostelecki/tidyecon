@@ -10,7 +10,7 @@
 #' }
 #' @export
 #' @examples
-#' x = cbind(intercept = 1, mtcars[-match("mpg", names(mtcars))])
+#' x = cbind(intercept = 1, mtcars[setdiff(names(mtcars), "mpg")])
 #' y = mtcars[["mpg"]]
 #' decomp = decomp_lm(x, y)
 #' plot(decomp)
@@ -65,3 +65,76 @@ decomp_lm = function(x, y, options = list()){
 }
 
 globalVariables(".data")
+
+#' decomp
+#' Generic decomp function
+#' @param model Model object (e.g. output from \code{lm_fit})
+#' @param ... list of additional options:
+#' \describe{
+#'   \item{variable}{data.frame with "categeory" column}
+#'   \item{resolve}{"actual" or "fitted". Default is "actual"}
+#' }
+#' @return A data.frame.
+#' @export
+decomp = function(model, ...){
+  UseMethod("decomp")
+}
+
+decomp.lm_fit = function(model, options = NULL){
+
+  decomp = decomp_lm(
+    x = model[["x"]],
+    y = model[["y"]],
+    options = decomp_options_prep(model[["model"]], options)
+  )
+
+  if (!is.null(model[["categories"]])){
+    model[["categories"]][["vnum"]] = vnums(seq_len(nrow(model[["categories"]])))
+    decomp = dplyr::left_join(
+      decomp,
+      model[["categories"]][c("vnum", "expr", "category")],
+      c("vnum", "expr")
+    )
+    class(decomp) = "decomp"
+  }
+
+
+  decomp
+
+}
+
+decomp.estimate = function(model, options = NULL) {
+  decomp = decomp_lm(
+    x = model[["model"]][["x"]],
+    y = model[["model"]][["y"]],
+    options = decomp_options_prep(model[["model"]], options)
+  )
+
+  if (!is.null(model[["categories"]])){
+    n = nrow(model[["categories"]])
+    fmt = paste0("v%.", floor(log10(n)), "d")
+    model[["categories"]][["vnum"]] = sprintf(fmt, seq_len(n))
+    decomp = dplyr::left_join(
+      decomp,
+      model[["categories"]][c("vnum", "expr", "category")],
+      c("vnum", "expr")
+    )
+    class(decomp) = "decomp"
+  }
+
+
+  decomp
+
+}
+
+#' decomp_options_prep
+#' @param model an lm_fit object
+#' @param options a list of additional options (resolve, )
+#'
+decomp_options_prep = function(model, options) {
+
+  c(list(coefficients = model[["coefficients"]],
+         id = model[["id"]]),
+    options)
+
+}

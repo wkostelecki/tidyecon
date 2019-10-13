@@ -1,8 +1,9 @@
 #' plot-decomp
 #' @param x a decomp data.frame
-#' @param base_size base size for ggplot theme
+#' @param ... additional unused arguments
+#' @param base_size ggplot theme size
 #' @export
-plot.decomp = function(x, base_size = 12){
+plot.decomp = function(x, ..., base_size = 12){
 
   if (exists("category", x)){
     category_col = "category"
@@ -11,8 +12,11 @@ plot.decomp = function(x, base_size = 12){
   }
 
   if (is.character(x[["id"]]) || is.factor(x[["id"]])) {
-    plot_func = function(data, x, y, group, size) {
-      ezplot::bar_plot(data, x, y, group, size = base_size, label_cutoff = 1)
+    plot_func = function(data, x, y, group, size, ...) {
+      ezplot::bar_plot(data, x, y, group,
+                       size = base_size,
+                       label_cutoff = 1,
+                       ...)
     }
     x_discrete = TRUE
     id_levels = as.character(unique(x[["id"]]))
@@ -25,7 +29,8 @@ plot.decomp = function(x, base_size = 12){
   g = plot_func(x,
                 "id", "value",
                 category_col,
-                size = base_size)
+                size = base_size,
+                ...)
 
   if (x_discrete) {
     g = suppressMessages(
